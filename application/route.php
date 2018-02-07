@@ -12,5 +12,11 @@
 use think\Route;
 
 Route::get('api/:ver/cate', 'api/:ver.cate/read');
-//获取首页数据
+//首页数据路由
 Route::get('api/:ver/index', 'api/:ver.index/getIndexData');
+//招聘列表路由
+Route::get('api/:ver/position', 'api/:ver.position/getPositionList');
+//企业列表路由
+Route::get('api/:ver/company', 'api/:ver.company/getCompanyList');
+//人才列表路由
+Route::get('api/:ver/resume', 'api/:ver.resume/getResumeList');
