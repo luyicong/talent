@@ -19,4 +19,14 @@ class Company extends Common
 
         return show(config('code.success'), 'OK', $result, 200);
     }
+
+    //根据企业id获取企业详情
+    public function getCompanyDetail() {
+
+        $comp_id = input('param.id');
+
+        $result = model('CompanyList')->getCompanyDetailById($comp_id);
+
+        return show(config('code.success'), 'OK', $result, 200);
+    }
 }

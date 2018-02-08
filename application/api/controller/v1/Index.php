@@ -18,13 +18,13 @@ class Index extends Common
         $cates = model('Cate')->getCate();
 
         //首页企业列表
-        $companys = model('CompanyList')->getCompanyList();
+        $companys = model('CompanyList')->getCompanyListForIndex();
 
         //获取求职列表
-        $resumes = model('Resume')->getResumeList();
+        $resumes = model('Resume')->getResumeListForIndex();
 
         //获取招聘列表
-        $positions = model('Position')->getPosList();
+        $positions = model('Position')->getPosListForIndex();
 
         $result = [
             'cateList' => $cates,
@@ -32,7 +32,6 @@ class Index extends Common
             'resumeList' => $resumes,
             'positionList' => $positions
         ];
-
         return show(config('code.success'), 'OK', $result, 200);
     }
 }

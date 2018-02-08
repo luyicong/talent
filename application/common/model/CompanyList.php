@@ -14,15 +14,24 @@ use think\model\Merge;
 class CompanyList extends Merge
 {
     //获取企业列表
-    public function getCompanyList($data=[]) {
+    public function getCompanyListForIndex($data=[]) {
 
         $order = ['comp_id' => 'desc'];
 
         $result = db('company')
             ->where($data)
             ->order($order)
-
             ->paginate(5);
+
+        return $result;
+    }
+
+    //获取企业详情
+    public function getCompanyDetailById($com_id) {
+
+        $result = db('company')
+            ->where('comp_id',$com_id)
+            ->find();
 
         return $result;
     }
