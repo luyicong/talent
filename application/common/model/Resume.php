@@ -31,6 +31,10 @@ class Resume extends Model
                 ->page($nowPage,1)
                 ->select();
 
+        //时间格式转换
+        foreach ($result as &$item) {
+            $item['update_time'] = transfTime($item['update_time']);
+        }
         return $result;
     }
 }

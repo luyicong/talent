@@ -24,3 +24,6 @@ Route::get('api/:ver/company', 'api/:ver.company/getCompanyList');
 Route::get('api/:ver/companyDetail/:id', 'api/:ver.company/getCompanyDetail');
 //人才列表路由
 Route::get('api/:ver/resume', 'api/:ver.resume/getResumeList');
+
+//用户相关
+Route::post('api/:ver/register', 'api/:ver.user/register');

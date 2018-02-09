@@ -18,13 +18,11 @@ class Position extends Common
 
         $params = input('get.');
 
-        $cate_id = isset($params['cate_id'])?isset($params['cate_id']):'';
+        $cate_id = isset($params['cate_id'])?$params['cate_id']:'';
 
-        $nowPage = isset($params['nowPage'])?$params['nowPage']:1;
+        $params['nowPage'] = isset($params['nowPage'])?$params['nowPage']:1;
 
-//        halt($nowPage);
-
-        $result = model('Position')->getPosListForListPage($cate_id,$nowPage);
+        $result = model('Position')->getPosListForListPage($params);
 
         return show(config('code.success'), 'OK', $result, 200);
     }
