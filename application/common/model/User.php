@@ -26,4 +26,17 @@ class User extends Model
         return db('user')->insert($data);
 
     }
+
+    public function userLogin($data){
+
+//        halt($data);
+
+        $query_phone = db('user')
+            ->where([
+                'user_phone|user_email' => $data['user_name'],
+                'password' => $data['password']
+            ])->find();
+//        halt($query_phone);
+        return $query_phone;
+    }
 }

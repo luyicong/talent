@@ -60,7 +60,6 @@ class Position extends Model
     }
     //根据id获取职位详情
     public function  getPosDetailById($pos_id) {
-        halt(time());
         $result = db('position')
             ->alias('p')
             //关联企业表查询
