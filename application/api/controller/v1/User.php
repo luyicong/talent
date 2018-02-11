@@ -8,6 +8,12 @@
 
 namespace app\api\controller\v1;
 
+header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Headers: token,Origin, X-Requested-With, Content-Type, Accept");
+header('Access-Control-Allow-Methods: GET,POST,OPTIONS');
+if(request()->isOptions()){
+    exit();
+}
 
 use app\api\controller\Common;
 
@@ -19,7 +25,7 @@ class User extends Common
 
         $params = input('post.');
         //校验用户名
-//        halt($params);
+        halt($params);
         if(empty($params['user_name'])) {
             return  show(config('code.error'), '用户名不合法', '', 200);
         }

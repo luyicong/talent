@@ -17,7 +17,9 @@ return [
         'app\\api\\behavior\\CORS'
     ],
     // 应用开始
-    'app_begin'    => [],
+    'app_begin'    => [
+        'app\\api\\behavior\\CORS'
+    ],
     // 模块初始化
     'module_init'  => [],
     // 操作开始执行
@@ -27,5 +29,7 @@ return [
     // 日志写入
     'log_write'    => [],
     // 应用结束
-    'app_end'      => [ ],
+    'app_end'      => [
+        'app\\api\\behavior\\CORS'
+    ],
 ];
