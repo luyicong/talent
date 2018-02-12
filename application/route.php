@@ -22,10 +22,20 @@ Route::get('api/:ver/positionDetail/:id', 'api/:ver.position/getPosDetail');
 Route::get('api/:ver/company', 'api/:ver.company/getCompanyList');
 //企业详情路由
 Route::get('api/:ver/companyDetail/:id', 'api/:ver.company/getCompanyDetail');
-//人才列表路由
+//人才求职列表路由
 Route::get('api/:ver/resume', 'api/:ver.resume/getResumeList');
+//求职详情路由
+Route::get('api/:ver/resumeDetail/:id', 'api/:ver.resume/getResumeDetail');
+
+//搜索
+Route::get('api/:ver/search','api/:ver.search/search');
 
 //用户相关
+//注册
 Route::post('api/:ver/register', 'api/:ver.user/register');
-
+//登录
 Route::get('api/:ver/login', 'api/:ver.user/login');
+//获取用户信息
+Route::get('api/:ver/getUserInfo/:id', 'api/:ver.user/getUserInfo');
+//用户更新简历
+Route::post('api/:ver/upDateResume', 'api/:ver.user/upDateResume');

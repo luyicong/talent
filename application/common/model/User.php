@@ -15,7 +15,7 @@ class User extends Model
 {
     protected $autoWriteTimestamp = true;
     //tp5的自动完成机制
-    protected $auto = ['user_id','create_time'];
+    protected $auto = ['user_id','create_time','update_time'];
 
     public function userRegist($data) {
 
@@ -29,14 +29,36 @@ class User extends Model
 
     public function userLogin($data){
 
-//        halt($data);
 
-        $query_phone = db('user')
+        $query = db('user')
             ->where([
                 'user_phone|user_email' => $data['user_name'],
                 'password' => $data['password']
             ])->find();
-//        halt($query_phone);
-        return $query_phone;
+        $userInfo = db('resume')->where('user_id',$query['user_id'])->find();
+
+        $userInfo['user_name'] = $query['user_name'];
+
+        return $userInfo;
+    }
+
+    //用户基本信息，用户简历信息
+    public function getUserInfo($user_id){
+
+        $query = db('resume')->where('user_id',$user_id)->find();
+
+        return $query;
+    }
+
+    //更新简历信息
+    public function upDtaeresume($data) {
+//        halt($data);
+        $query = db('resume')
+
+            ->where('user_id',$data['user_id'])
+
+            ->update($data);
+
+        return $query;
     }
 }

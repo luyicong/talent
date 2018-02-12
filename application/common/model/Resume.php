@@ -37,4 +37,14 @@ class Resume extends Model
         }
         return $result;
     }
+
+    //求职详情
+    public function getResumeDateil($id) {
+
+        $result = db('resume')
+            ->where('id',$id)
+            ->find();
+
+        return $result;
+    }
 }

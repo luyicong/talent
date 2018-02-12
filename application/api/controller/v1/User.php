@@ -8,15 +8,18 @@
 
 namespace app\api\controller\v1;
 
-header('Access-Control-Allow-Origin: *');
-header("Access-Control-Allow-Headers: token,Origin, X-Requested-With, Content-Type, Accept");
-header('Access-Control-Allow-Methods: GET,POST,OPTIONS');
+//use houdunwang\crypt\Crypt;
+
+//header('Access-Control-Allow-Origin: *');
+//header("Access-Control-Allow-Headers: token,Origin, X-Requested-With, Content-Type, Accept");
+//header('Access-Control-Allow-Methods: GET,POST,OPTIONS');
 if(request()->isOptions()){
     exit();
 }
 
 use app\api\controller\Common;
 
+use houdunwang\crypt\Crypt;
 use think\Response;
 class User extends Common
 {
@@ -25,7 +28,7 @@ class User extends Common
 
         $params = input('post.');
         //校验用户名
-        halt($params);
+//        halt($params);
         if(empty($params['user_name'])) {
             return  show(config('code.error'), '用户名不合法', '', 200);
         }
@@ -53,13 +56,44 @@ class User extends Common
     //用户登录
     public function login() {
         $data = input('get.');
-//        halt($data);
+
         $result = model('user')->userLogin($data);
 
         if($result){
             return  show(config('code.success'), '恭喜您，登录成功！', $result, 200);
         }else{
-            return  show(config('code.error'), '用户名或密码不正确', $result, 200);
+            return  show(config('code.error'), '用户名或密码不正确', [], 200);
+        }
+    }
+
+    //获取用户基本信息，包括简历
+    public function getUserInfo() {
+
+//        halt(input('param.id'));
+
+        $result = model('user')->getUserInfo(input('param.id'));
+
+        if($result){
+            return  show(config('code.success'), '操作成功！', $result, 200);
+        }else{
+            return  show(config('code.success'), '服务器内部错误', $result, 200);
+        }
+    }
+
+    //用户更新简历
+    public function upDateResume() {
+        $params = input('post.');
+        foreach ($params as $k=>$v){
+            if($k == 'id') unset($params[$k]);
+            if($k == 'user_name') unset($params[$k]);
+        }
+        $params['update_time'] = time();
+        $result = model('user')->upDtaeresume($params);
+
+        if($result){
+            return  show(config('code.success'), '操作成功！', $result, 200);
+        }else{
+            return  show(config('code.success'), '服务器内部错误', $result, 200);
         }
     }
 }

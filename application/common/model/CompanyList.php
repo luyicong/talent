@@ -30,8 +30,21 @@ class CompanyList extends Merge
     public function getCompanyDetailById($com_id) {
 
         $result = db('company')
+
             ->where('comp_id',$com_id)
+
             ->find();
+
+        $positionList = db('position')
+
+            ->where('comp_id',$com_id)
+
+            ->select();
+        //时间格式装还
+        foreach ($positionList as &$item) {
+            $item['sendtime'] = transfTime($item['sendtime']);
+        }
+        $result['posList'] = $positionList;
 
         return $result;
     }
