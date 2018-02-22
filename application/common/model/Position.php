@@ -70,6 +70,20 @@ class Position extends Model
         return $result;
     }
 
+    //投递职位
+    public function deliveryPos($user_id,$pos_id) {
+
+        $data = [
+            'user_id' => $user_id,
+            'pos_id' => $pos_id,
+            'create_time' => time()
+        ];
+
+        $result = db('position_delivery')->insert($data);
+
+        return $result;
+    }
+
     //收藏职位
     public function collectPos($user_id,$pos_id) {
 

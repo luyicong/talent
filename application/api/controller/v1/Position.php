@@ -37,6 +37,34 @@ class Position extends Common
         return show(config('code.success'), 'OK', $result, 200);
     }
 
+    //申请或投递职位
+    public function deliveryPosition() {
+
+        $result = model('Position')->deliveryPos(input('param.user_id'),input('param.pos_id'));
+
+        if($result){
+            return  show(config('code.success'), '投递成功！', [], 200);
+        }else{
+            return  show(config('code.error'), '服务器内部错误', [], 200);
+        }
+    }
+
+    //检验职位是否已投递
+    public function checkDeliveryPos() {
+
+        $map['user_id'] = input('param.user_id');
+
+        $map['pos_id'] = input('param.pos_id');
+
+        $query = db('position_delivery')->where($map)->find();
+
+        if($query){
+            return  show(config('code.success'), '该职位已投递！', [], 200);
+        }else{
+            return  show(config('code.error'), '该职位未投递', [], 200);
+        }
+    }
+
     //收藏职位
     public function collectPosition() {
 

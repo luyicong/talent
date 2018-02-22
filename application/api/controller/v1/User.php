@@ -38,15 +38,13 @@ class User extends Common
         }
 
         //查询用户名是否已存在
-        $user = db('user')->where('user_phone',$params['user_name'])->find();
+        $user = db('ser')->where('user_phone',$params['user_name'])->find();
 
         if($user){
             return  show(config('code.error'), '该手机号已注册', '', 200);
         }
 
-//        halt($params);
-
-        $result = model('user')-> userRegist($params);
+        $result = model('User')-> userRegist($params);
 
         if($result){
             return  show(config('code.success'), '恭喜您，注册成功！', $result, 200);
@@ -58,7 +56,7 @@ class User extends Common
 
         $data = input('get.');
 
-        $result = model('user')->userLogin($data);
+        $result = model('User')->userLogin($data);
 
         if($result){
             return  show(config('code.success'), '恭喜您，登录成功！', $result, 200);
@@ -70,9 +68,7 @@ class User extends Common
     //获取用户基本信息，包括简历
     public function getUserInfo() {
 
-//        halt(input('param.id'));
-
-        $result = model('user')->getUserInfo(input('param.id'));
+        $result = model('User')->getUserInfo(input('param.id'));
 
         if($result){
             return  show(config('code.success'), '操作成功！', $result, 200);
@@ -92,7 +88,7 @@ class User extends Common
         }
         $params['update_time'] = time();
 
-        $result = model('user')->upDtaeresume($params);
+        $result = model('User')->upDtaeresume($params);
 
         if($result){
             return  show(config('code.success'), '操作成功！', $result, 200);
@@ -108,7 +104,7 @@ class User extends Common
 
 //        halt(time());
 
-        $result = model('user')->getCollectList($user_id);
+        $result = model('User')->getCollectList($user_id);
 
         if($result){
             return  show(config('code.success'), '操作成功！', $result, 200);
@@ -129,5 +125,23 @@ class User extends Common
         }else{
             return  show(config('code.success'), '服务器内部错误', $result, 200);
         }
+    }
+    //用户投递列表
+    public function deliveryList() {
+
+        $user_id = input('param.user_id');
+
+//        halt($user_id);
+
+        $result = model('User')->getDeliveryList(input('param.user_id'));
+
+//        halt($result);
+
+        if($result){
+            return  show(config('code.success'), '操作成功！', $result, 200);
+        }else{
+            return  show(config('code.success'), '服务器内部错误', $result, 200);
+        }
+
     }
 }
