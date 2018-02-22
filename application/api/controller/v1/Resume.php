@@ -26,6 +26,7 @@ class Resume extends Common
     }
     //获取求职详情
     public function getResumeDetail() {
+
         $id = input('param.id');
 //        halt($user_id);
 

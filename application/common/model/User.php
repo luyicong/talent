@@ -61,4 +61,29 @@ class User extends Model
 
         return $query;
     }
+
+    //获取用户收藏列表
+    public function getCollectList($user_id){
+
+        $query = db('position_collect')
+
+            ->alias('pc')
+            //关联职位表查询
+            ->join('__POSITION__ p','pc.pos_id = p.pos_id')
+            //关联企业表查询
+            ->join('__COMPANY__ c','p.comp_id = c.comp_id')
+            //需要什么字段就从相应的表中提取出来,并分页
+            ->field('pc.collect_id,p.pos_id,p.pos_name,pc.collect_time,c.comp_name')
+            //查询条件
+            ->where('user_id',$user_id)
+
+            ->select();
+
+        //时间格式装还
+        foreach ($query as &$item) {
+            $item['collect_time'] = transfTime($item['collect_time']);
+        }
+
+        return $query;
+    }
 }

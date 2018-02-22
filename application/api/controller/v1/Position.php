@@ -36,4 +36,40 @@ class Position extends Common
 
         return show(config('code.success'), 'OK', $result, 200);
     }
+
+    //收藏职位
+    public function collectPosition() {
+
+        $user_id = input('param.user_id');
+
+        $pos_id  = input('param.pos_id');
+
+        $result = model('Position')->collectPos($user_id,$pos_id);
+
+        if($result){
+            return  show(config('code.success'), '收藏成功！', $result, 200);
+        }else{
+            return  show(config('code.error'), '服务器内部错误', [], 200);
+        }
+    }
+
+    //检查当前职位是否已经被收藏
+    public function checkCollect(){
+
+        $user_id = input('param.user_id');
+
+        $pos_id  = input('param.pos_id');
+
+        $map['user_id'] = input('param.user_id');
+
+        $map['pos_id'] = input('param.pos_id');
+
+        $query = db('position_collect')->where($map)->find();
+
+        if($query){
+            return  show(config('code.success'), '该职位已收藏！', [], 200);
+        }else{
+            return  show(config('code.error'), '该职位未收藏', [], 200);
+        }
+    }
 }

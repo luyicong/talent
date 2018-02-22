@@ -15,7 +15,8 @@ class Company extends Common
 {
     //获取企业列表
     public function getCompanyList() {
-        $result = model('CompanyList')->getCompanyList();
+
+        $result = model('CompanyList')->getCompanyListForPage();
 
         return show(config('code.success'), 'OK', $result, 200);
     }

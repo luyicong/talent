@@ -13,9 +13,9 @@ namespace app\api\controller\v1;
 //header('Access-Control-Allow-Origin: *');
 //header("Access-Control-Allow-Headers: token,Origin, X-Requested-With, Content-Type, Accept");
 //header('Access-Control-Allow-Methods: GET,POST,OPTIONS');
-if(request()->isOptions()){
-    exit();
-}
+//if(request()->isOptions()){
+//    exit();
+//}
 
 use app\api\controller\Common;
 
@@ -55,6 +55,7 @@ class User extends Common
 
     //用户登录
     public function login() {
+
         $data = input('get.');
 
         $result = model('user')->userLogin($data);
@@ -82,16 +83,49 @@ class User extends Common
 
     //用户更新简历
     public function upDateResume() {
+
         $params = input('post.');
+
         foreach ($params as $k=>$v){
             if($k == 'id') unset($params[$k]);
             if($k == 'user_name') unset($params[$k]);
         }
         $params['update_time'] = time();
+
         $result = model('user')->upDtaeresume($params);
 
         if($result){
             return  show(config('code.success'), '操作成功！', $result, 200);
+        }else{
+            return  show(config('code.success'), '服务器内部错误', $result, 200);
+        }
+    }
+
+    //用户职位收藏列表
+    public function CollectList() {
+
+        $user_id = input('param.id');
+
+//        halt(time());
+
+        $result = model('user')->getCollectList($user_id);
+
+        if($result){
+            return  show(config('code.success'), '操作成功！', $result, 200);
+        }else{
+            return  show(config('code.success'), '服务器内部错误', $result, 200);
+        }
+    }
+
+    //取消某一个职位的收藏
+    public function cancelCollect() {
+
+        $result = db('position_collect')->where('collect_id',input('param.c_id'))->delete();
+
+//        halt($result);
+
+        if($result){
+            return  show(config('code.success'), '取消成功！', $result, 200);
         }else{
             return  show(config('code.success'), '服务器内部错误', $result, 200);
         }

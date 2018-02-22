@@ -19,9 +19,20 @@ class CompanyList extends Merge
         $order = ['comp_id' => 'desc'];
 
         $result = db('company')
+
             ->where($data)
+
             ->order($order)
+
             ->paginate(5);
+
+        return $result;
+    }
+
+    //获取企业列表
+    public function getCompanyListForPage() {
+
+        $result = db('company')->order('comp_id desc')->select();
 
         return $result;
     }

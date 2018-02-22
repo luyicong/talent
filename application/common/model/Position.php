@@ -70,4 +70,17 @@ class Position extends Model
         return $result;
     }
 
+    //收藏职位
+    public function collectPos($user_id,$pos_id) {
+
+        $data = [
+            'user_id' => $user_id,
+            'pos_id' => $pos_id,
+            'collect_time' => time()
+        ];
+
+        $result = db('position_collect')->insert($data);
+
+        return $result;
+    }
 }
