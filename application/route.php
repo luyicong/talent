@@ -8,8 +8,16 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
 use think\Route;
+
+return [
+    '__pattern__' => [
+        'name' => '\w+',
+    ]
+];
+
+Route::get('admin/index', 'admin/Index/index');
+
 
 Route::get('api/:ver/cate', 'api/:ver.cate/read');
 //首页数据路由
@@ -54,4 +62,6 @@ Route::get('api/:ver/collectList/:id', 'api/:ver.user/CollectList');
 Route::get('api/:ver/cancelCollect', 'api/:ver.user/cancelCollect');
 //获取投递职位列表
 Route::get('api/:ver/deliveryList/:user_id', 'api/:ver.user/deliveryList');
+//用户取消职位投递
+Route::get('api/:ver/cancelDelivery', 'api/:ver.user/cancelDelivery');
 

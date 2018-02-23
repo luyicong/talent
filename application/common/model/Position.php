@@ -90,11 +90,32 @@ class Position extends Model
         $data = [
             'user_id' => $user_id,
             'pos_id' => $pos_id,
-            'collect_time' => time()
+            'create_time' => time()
         ];
 
         $result = db('position_collect')->insert($data);
 
         return $result;
+    }
+
+    //管理后台获取职位列表
+    public function getPosListForAdmin() {
+
+        $query = db('position')
+            ->alias('p')
+            //关联企业表查询
+            ->join('__COMPANY__ c','p.comp_id = c.comp_id')
+            //需要什么字段就从相应的表中提取出来,并分页
+            ->field('p.pos_id,p.pos_name,p.pos_salary,p.pos_exp,p.pos_edu,p.pos_age,p.pos_type,p.sendtime,p.work_address,c.comp_name')
+            //首先按照发布时间渲染，最后再根据文章id进行渲染
+            ->order('p.pos_id asc')
+
+            ->select();
+
+        foreach ($query as &$item) {
+            $item['sendtime'] = transfTime($item['sendtime']);
+        }
+
+        return $query;
     }
 }

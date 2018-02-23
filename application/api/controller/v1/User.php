@@ -38,13 +38,13 @@ class User extends Common
         }
 
         //查询用户名是否已存在
-        $user = db('ser')->where('user_phone',$params['user_name'])->find();
+        $user = db('user')->where('user_phone',$params['user_name'])->find();
 
         if($user){
             return  show(config('code.error'), '该手机号已注册', '', 200);
         }
 
-        $result = model('User')-> userRegist($params);
+        $result = model('User')->userRegist($params);
 
         if($result){
             return  show(config('code.success'), '恭喜您，注册成功！', $result, 200);
@@ -56,7 +56,10 @@ class User extends Common
 
         $data = input('get.');
 
+//        halt($data);
+
         $result = model('User')->userLogin($data);
+
 
         if($result){
             return  show(config('code.success'), '恭喜您，登录成功！', $result, 200);
@@ -82,10 +85,15 @@ class User extends Common
 
         $params = input('post.');
 
+//        halt($params);
+
         foreach ($params as $k=>$v){
+
             if($k == 'id') unset($params[$k]);
+
             if($k == 'user_name') unset($params[$k]);
         }
+
         $params['update_time'] = time();
 
         $result = model('User')->upDtaeresume($params);
@@ -93,7 +101,7 @@ class User extends Common
         if($result){
             return  show(config('code.success'), '操作成功！', $result, 200);
         }else{
-            return  show(config('code.success'), '服务器内部错误', $result, 200);
+            return  show(config('code.error'), '服务器内部错误', $result, 200);
         }
     }
 
@@ -101,8 +109,6 @@ class User extends Common
     public function CollectList() {
 
         $user_id = input('param.id');
-
-//        halt(time());
 
         $result = model('User')->getCollectList($user_id);
 
@@ -118,30 +124,33 @@ class User extends Common
 
         $result = db('position_collect')->where('collect_id',input('param.c_id'))->delete();
 
-//        halt($result);
-
         if($result){
-            return  show(config('code.success'), '取消成功！', $result, 200);
+            return  show(config('code.success'), '取消成功！', [], 200);
         }else{
-            return  show(config('code.success'), '服务器内部错误', $result, 200);
+            return  show(config('code.error'), '服务器内部错误', [], 200);
         }
     }
     //用户投递列表
     public function deliveryList() {
 
-        $user_id = input('param.user_id');
-
-//        halt($user_id);
-
         $result = model('User')->getDeliveryList(input('param.user_id'));
-
-//        halt($result);
 
         if($result){
             return  show(config('code.success'), '操作成功！', $result, 200);
         }else{
-            return  show(config('code.success'), '服务器内部错误', $result, 200);
+            return  show(config('code.error'), '服务器内部错误', $result, 200);
         }
+    }
 
+    //取消职位投递
+    public function cancelDelivery() {
+
+        $result = db('position_delivery')->where('delivery_id',input('param.d_id'))->delete();
+
+        if($result){
+            return  show(config('code.success'), '取消成功！', [], 200);
+        }else{
+            return  show(config('code.error'), '服务器内部错误', [], 200);
+        }
     }
 }

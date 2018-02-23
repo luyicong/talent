@@ -1,0 +1,130 @@
+{extend name='base'/}
+{block name="content"}
+    <div>
+
+        <ul class="nav nav-tabs" role="tablist">
+
+            <li>
+                <a href="{:url('admin/Position/index')}">职位列表</a>
+            </li>
+            <li class="active">
+                <a href="javascript:;">添加职位</a>
+            </li>
+        </ul>
+        <form id="navigate" class="form-horizontal">
+            <input type="hidden" name="csrf_token" value="547d8d197baef66f188c2f3d329a85d8">
+            <div class="panel panel-default">
+                    <div class="panel-heading">
+                        职位相关信息
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label star">职位名称</label>
+                            <div class="col-sm-8"><input required="required" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label star">职位薪资</label>
+
+                            <div class="col-sm-8">
+                                <input required="required" class="form-control">
+                                <span class="help-block">每月薪资或年薪，（如：8k-10k/月或15万/年）</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label star">经验要求</label>
+                            <div class="col-sm-8">
+                                <input required="required" class="form-control">
+                                <span class="help-block">（如：3-5年）</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label star">职位类型</label>
+                            <div class="col-sm-8">
+                                <select class="form-control">
+                                    <option value="全职">全职</option>
+                                    <option value="兼职">兼职</option>
+                                    <option value="实习生">实习生</option>
+                                    <option value="应届生">应届生</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label star">性别要求</label>
+                            <div class="col-sm-8">
+                                <select class="form-control">
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                    <option value="不限">不限</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label star">学历要求</label>
+                            <div class="col-sm-8">
+                                <input required="required" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">职位名称</label>
+                            <div class="col-sm-8">
+                                <select class="form-control">
+                                    <option value="1">位置1</option>
+                                    <option value="2">位置2</option>
+                                    <option value="3">位置3</option>
+                                    <option value="4">位置4</option>
+                                    <option value="5">位置5</option>
+                                    <option value="6">位置6</option>
+                                    <option value="7">位置7</option>
+                                </select>
+                                <!--<span class="help-block">-->
+                                    <!--设置位置后可以将导航菜单显示到模板对应的位置中。-->
+                                    <!--（可以同时设置多个导航在同一个位置中，会根据排序大小依次显示），显示的位置必须要有模板支持。-->
+                                <!--</span>-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label star">导航名称</label>
+                            <div class="col-sm-8"><input required="required" class="form-control"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">描述</label> <div class="col-sm-8"><textarea rows="5" class="form-control"></textarea></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-8">
+                                <label class="radio-inline"><input type="radio" value="1"> 显示</label>
+                                <label class="radio-inline"><input type="radio" value="0"> 隐藏</label>
+                                <span class="help-block">设置导航菜单的显示状态</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label star">直接链接</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input required="required" class="form-control">
+                                    <div class="input-group-btn">
+                                        <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">选择链接 <span class="caret"></span></button>
+                                        <ul class="dropdown-menu dropdown-menu-right">
+                                            <li><a href="javascript:;">系统菜单</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">排序</label>
+                            <div class="col-sm-8">
+                                <input required="required" class="form-control"> <span class="help-block">导航排序，越大越靠前</span>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </form>
+            <!--<button type="submit" class="btn btn-default">保存修改</button>-->
+        <script>
+            require(['hdjs'],function(hdjs){
+                hdjs.bootstrapswitch('.bootstrap-switch');
+            })
+        </script>
+    </div>
+{/block}

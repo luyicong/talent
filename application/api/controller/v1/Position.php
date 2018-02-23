@@ -75,7 +75,7 @@ class Position extends Common
         $result = model('Position')->collectPos($user_id,$pos_id);
 
         if($result){
-            return  show(config('code.success'), '收藏成功！', $result, 200);
+            return  show(config('code.success'), '收藏成功！', [], 200);
         }else{
             return  show(config('code.error'), '服务器内部错误', [], 200);
         }

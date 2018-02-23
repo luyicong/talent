@@ -13,31 +13,51 @@ use think\Model;
 
 class User extends Model
 {
-    protected $autoWriteTimestamp = true;
+//    protected $autoWriteTimestamp = true;
     //tp5的自动完成机制
-    protected $auto = ['user_id','create_time','update_time'];
-
+//    protected $auto = ['user_id','create_time','update_time'];
+    //用户注册
     public function userRegist($data) {
 
         $data['create_time'] = time();
 
         $data['user_phone'] = $data['user_name'];
 
-        return db('user')->insert($data);
+        $data['password'] = md5($data['password']);
+
+        //添加用户信息
+        $user = db('user')->insert($data);
+
+        $userInfo = db('user')->where('user_phone',$data['user_name'])->find();
+
+        //简历一份空简历
+        $userResume = db('resume')->insert(['user_id'=>$userInfo['user_id']]);
+
+        return $userInfo;
 
     }
 
+    //用户登录
     public function userLogin($data){
-
 
         $query = db('user')
             ->where([
                 'user_phone|user_email' => $data['user_name'],
                 'password' => $data['password']
             ])->find();
-        $userInfo = db('resume')->where('user_id',$query['user_id'])->find();
 
-        $userInfo['user_name'] = $query['user_name'];
+//        halt($query);
+
+        if($query){
+
+            $userInfo = db('resume')->where('user_id',$query['user_id'])->find();
+
+            $userInfo['user_id'] = $query['user_id'];
+
+            $userInfo['user_name'] = $query['user_name'];
+        }else{
+            return $query;
+        }
 
         return $userInfo;
     }
@@ -52,13 +72,15 @@ class User extends Model
 
     //更新简历信息
     public function upDtaeresume($data) {
+
 //        halt($data);
+
         $query = db('resume')
 
             ->where('user_id',$data['user_id'])
 
             ->update($data);
-
+//        halt($query);
         return $query;
     }
 

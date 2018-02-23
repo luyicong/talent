@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title> CMS 内容管理系统</title>
+    <meta http-equiv="Cache-Control" content="Public"/>
+    <meta name="csrf-token" content="547d8d197baef66f188c2f3d329a85d8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css?version=v2.0.9" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css?version=v2.0.9" rel="stylesheet">
+    <link rel="stylesheet" href="/resource/css/hdcms.css?version=v2.0.9">
+    <link rel="stylesheet" href="/resource/hdjs/dist/static/css/hdjs.css?version=v2.0.9">
+    <script>
+        //HDJS组件需要的配置
+        window.hdjs = {
+            'base': 'http://cms.yoho167.com/resource/hdjs/',
+            'uploader': 'http://cms.yoho167.com/index.php?s=component/upload/uploader&m=article&siteid=2',
+            'filesLists': 'http://cms.yoho167.com/index.php?s=component/upload/filesLists&m=article&siteid=2',
+            'removeImage': 'http://cms.yoho167.com/index.php?s=component/upload/removeImage&m=article&siteid=2',
+            'ossSign': 'http://cms.yoho167.com/index.php?s=component/oss/sign&m=article&siteid=2',
+        };
+        window.system = {
+            attachment: "/attachment",
+            root: "http://cms.yoho167.com",
+            url: "http://cms.yoho167.com/index.php?s=site/navigate/lists&entry=home&m=article&siteid=2&mark=article&mi=92&mt=",
+            siteid: "2",
+            module: "article",
+            //用于上传等组件使用标识当前是后台用户
+            user_type: 'user'
+        }
+        if (navigator.appName == 'Microsoft Internet Explorer') {
+            if (navigator.userAgent.indexOf("MSIE 5.0") > 0 || navigator.userAgent.indexOf("MSIE 6.0") > 0 || navigator.userAgent.indexOf("MSIE 7.0") > 0) {
+                alert('您使用的 IE 浏览器版本过低, 推荐使用 Chrome 浏览器或 IE8 及以上版本浏览器.');
+            }
+        }
+    </script>
+    <script src="http://cms.yoho167.com/resource/hdjs/dist/static/requirejs/require.js?version=v2.0.9"></script>
+    <script src="http://cms.yoho167.com/resource/hdjs/dist/static/requirejs/config.js?version=v2.0.9"></script>
+    <link href="http://cms.yoho167.com/resource/css/site.css?version=v2.0.9" rel="stylesheet">
+    <script>
+        require(['hdjs'], function () {
+            //为异步请求设置CSRF令牌
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        })
+    </script>
+</head>
+<body class="site">
+<div>
+    <!--后台站点父级模板-->
+    <div class="container-fluid admin-top">
+        <!--导航-->
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav">
+
+                        <li class="top_menu active">
+                            <a href="?s=site/entry/home&siteid=2&mark=article" class="quickMenuLink">
+                                <i class="'fa-w fa fa-cubes"></i> CMS 内容管理系统                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+
+                        <li class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"
+                               style="display:block; max-width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; "
+                               aria-expanded="false">
+                                <i class="fa fa-group"></i>  <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="?s=system/site/edit&siteid=2"><i class="fa fa-weixin fa-fw"></i>
+                                        编辑当前账号资料
+                                    </a>
+                                </li>
+                                <li><a href="?s=system/site/lists"><i class="fa fa-cogs fa-fw"></i> 管理se其它公众号</a></li>
+                                <li><a href="javascript:;" onclick="updateSiteCache()"><i class="fa fa-sitemap"></i> 更新站点缓存</a></li>
+                            </ul>
+                            <script>
+                                function updateSiteCache() {
+                                    require(['resource/js/hdcms.js'], function (hdcms) {
+                                        hdcms.updateSiteCache();
+                                    })
+                                }
+                            </script>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                <i class="fa fa-w fa-user"></i>
+                                admin                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="?s=system/user/info">我的帐号</a></li>
+
+                                <li><a href="?s=system/manage/menu">系统选项</a></li>
+
+                                <li role="separator" class="divider"></li>
+                                <li><a href="?s=system/entry/quit">退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--导航end-->
+    </div>
+    <!--主体-->
+    <div class="container-fluid admin_menu">
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 col-lg-2 left-menu">
+                <script>
+                    require(['hdjs', 'resource/js/site_menu.js'], function (hdjs, menu) {
+                        //当前点击样式
+                        menu.changeCurrentLinkStyle();
+                        //菜单搜索
+                        $('#searchMenu').blur(function () {
+                            menu.search(this);
+                        });
+                    })
+                </script>
+                <!--扩展模块动作 start-->
+                <div class="panel panel-default">
+                    <!--系统菜单-->
+
+
+                    <div class="panel-heading">
+                        <h4 class="panel-title">用户管理</h4>
+                        <a class="panel-collapse" data-toggle="collapse" href="javascript:;">
+                            <i class="fa fa-chevron-circle-down"></i>
+                        </a>
+                    </div>
+                    <ul class="list-group menus">
+                        <li class="list-group-item" id="73">
+                            <a href="javascript:;"
+                               class="quickMenuLink">
+                                企业用户                                                </a>
+                        </li>
+                        <li class="list-group-item" id="77">
+                            <a href="javascript:;"
+                               class="quickMenuLink">
+                                求职用户                                                </a>
+                        </li>
+                    </ul>
+                    <div class="panel-heading">
+                        <h4 class="panel-title">职位管理</h4>
+                        <a class="panel-collapse" data-toggle="collapse" href="javascript:;">
+                            <i class="fa fa-chevron-circle-down"></i>
+                        </a>
+                    </div>
+                    <ul class="list-group menus">
+                        <li class="list-group-item" id="75">
+
+                            <a href="javascript:;"
+                               class="quickMenuLink">
+                                职位列表                                                </a>
+                        </li>
+
+                    </ul>
+                    <!----------返回模块列表 start------------>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-lg-10">
+                <!--有模块管理时显示的面包屑导航-->
+                {block name="content"}{/block}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

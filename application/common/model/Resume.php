@@ -16,7 +16,7 @@ class Resume extends Model
     //获取首页求职列表
     public function getResumeListForIndex() {
 
-        $result = db('resume')->limit(4)->select();
+        $result = db('resume')->where('position','<>','')->limit(4)->select();
 
         //时间格式转换
         foreach ($result as &$item) {
@@ -28,6 +28,7 @@ class Resume extends Model
     //获取人才求职列表
     public function getResumeListForListPage($nowPage=1) {
         $result = db('resume')
+                ->where('position','<>','')
                 ->page($nowPage,1)
                 ->select();
 

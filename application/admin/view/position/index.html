@@ -1,0 +1,68 @@
+{extend name='base'/}
+{block name="content"}
+    <div>
+
+        <ul class="nav nav-tabs" role="tablist">
+
+            <li class="active">
+                <a href="javascript:;">职位列表</a>
+            </li>
+            <li>
+                <a href="{:url('admin/Position/add')}">添加职位</a>
+            </li>
+        </ul>
+            <div class="panel panel-default">
+                <!--<div class="panel-heading">-->
+                    <!--这里提供了能够显示的导航菜单, 你可以选择性的自定义或显示隐藏, 所有操作更改后需要点击保存按钮才有效。-->
+                <!--</div>-->
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="50">编号</th>
+                            <th width="150">名称</th>
+                            <th width="300">企业</th>
+                            <th width="200">工作地点</th>
+                            <th width="180">薪资</th>
+
+                            <!--模块链接时不显示位置,位置在文章系统有效-->
+                            <th width="90">类型</th>
+
+                            <!--<th>开启</th>-->
+                            <!--<th>可用会员组</th>-->
+                            <th width="150">发布时间</th>
+                            <th width="150">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="posList" id="vo"}
+                            <tr>
+                                <td>{$vo.pos_id}</td>
+                                <td>{$vo.pos_name}</td>
+                                <td>{$vo.comp_name}</td>
+                                <td>{$vo.work_address}</td>
+                                <td>{$vo.pos_salary}</td>
+                                <td>{$vo.pos_type}</td>
+                                <td>{$vo.sendtime}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-default" @click.prevent="edit(field)">
+                                            编辑
+                                        </a>
+                                        <a href="javascript:;" @click="del(field.id)" class="btn btn-default">删除</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {/volist}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--<button type="submit" class="btn btn-default">保存修改</button>-->
+        <script>
+            require(['hdjs'],function(hdjs){
+                hdjs.bootstrapswitch('.bootstrap-switch');
+            })
+        </script>
+    </div>
+{/block}
