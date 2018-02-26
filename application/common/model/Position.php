@@ -48,9 +48,9 @@ class Position extends Model
             ->order('p.sendtime desc');
         //是否传分类id
         if(isset($param['cate_id'])){
-            $result = $query -> where('cate_id',$param['cate_id'])->page($param['nowPage'],2)->select();
+            $result = $query -> where('cate_id',$param['cate_id'])->page($param['nowPage'],5)->select();
         }else{
-            $result = $query ->page($param['nowPage'],2)->select();
+            $result = $query ->page($param['nowPage'],5)->select();
         }
         //时间格式装还
         foreach ($result as &$item) {
@@ -110,12 +110,29 @@ class Position extends Model
             //首先按照发布时间渲染，最后再根据文章id进行渲染
             ->order('p.pos_id asc')
 
-            ->select();
+            ->paginate(10);
 
         foreach ($query as &$item) {
             $item['sendtime'] = transfTime($item['sendtime']);
         }
 
         return $query;
+    }
+
+    //管理后台添加职位
+    public function addPosition($data) {
+
+        $data['sendtime'] = time();
+
+        $query = db('position')->insert($data);
+
+        //企业列表职位数量+1
+        $insetNum = db('company')->where('comp_id',$data['comp_id'])->setInc('comp_pos_count');
+
+        if($query && $insetNum){
+            return ['valid'=>'1','msg'=>'添加成功！'];
+        }else{
+            return ['valid'=>'0','msg'=>'添加失败！'];
+        }
     }
 }

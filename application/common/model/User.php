@@ -31,7 +31,7 @@ class User extends Model
         $userInfo = db('user')->where('user_phone',$data['user_name'])->find();
 
         //简历一份空简历
-        $userResume = db('resume')->insert(['user_id'=>$userInfo['user_id']]);
+        $userResume = db('resume')->insert(['user_id'=>$userInfo['user_id'],'update_time'=>time()]);
 
         return $userInfo;
 

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title> CMS 内容管理系统</title>
+    <title>人才网CMS内容管理系统</title>
     <meta http-equiv="Cache-Control" content="Public"/>
     <meta name="csrf-token" content="547d8d197baef66f188c2f3d329a85d8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -40,14 +40,14 @@
     <script src="http://cms.yoho167.com/resource/hdjs/dist/static/requirejs/config.js?version=v2.0.9"></script>
     <link href="http://cms.yoho167.com/resource/css/site.css?version=v2.0.9" rel="stylesheet">
     <script>
-        require(['hdjs'], function () {
-            //为异步请求设置CSRF令牌
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-        })
+        // require(['hdjs'], function () {
+        //     //为异步请求设置CSRF令牌
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });
+        // })
     </script>
 </head>
 <body class="site">
@@ -61,50 +61,22 @@
                     <ul class="nav navbar-nav">
 
                         <li class="top_menu active">
-                            <a href="?s=site/entry/home&siteid=2&mark=article" class="quickMenuLink">
-                                <i class="'fa-w fa fa-cubes"></i> CMS 内容管理系统                            </a>
+                            <a href="?s=site/entry/home&siteid=2&mark=article" class="quickMenuLink" style="font-size: 20px;">CMS内容管理系统</a>
                         </li>
                     </ul>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
-
-                        <li class="dropdown">
-                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"
-                               style="display:block; max-width:150px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; "
-                               aria-expanded="false">
-                                <i class="fa fa-group"></i>  <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="?s=system/site/edit&siteid=2"><i class="fa fa-weixin fa-fw"></i>
-                                        编辑当前账号资料
-                                    </a>
-                                </li>
-                                <li><a href="?s=system/site/lists"><i class="fa fa-cogs fa-fw"></i> 管理se其它公众号</a></li>
-                                <li><a href="javascript:;" onclick="updateSiteCache()"><i class="fa fa-sitemap"></i> 更新站点缓存</a></li>
-                            </ul>
-                            <script>
-                                function updateSiteCache() {
-                                    require(['resource/js/hdcms.js'], function (hdcms) {
-                                        hdcms.updateSiteCache();
-                                    })
-                                }
-                            </script>
-                        </li>
-
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                                <i class="fa fa-w fa-user"></i>
-                                admin                                <span class="caret"></span>
+                                <i class="fa fa-w fa-user"></i>{$Request.session.admin.admin_name}<span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="?s=system/user/info">我的帐号</a></li>
+                                <!--<li><a href="?s=system/user/info">我的帐号</a></li>-->
 
-                                <li><a href="?s=system/manage/menu">系统选项</a></li>
-
+                                <!--<li><a href="?s=system/manage/menu">系统选项</a></li>-->
                                 <li role="separator" class="divider"></li>
-                                <li><a href="?s=system/entry/quit">退出</a></li>
+                                <li><a href="{:url('admin/Entry/logout')}">退出</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -140,12 +112,12 @@
                     </div>
                     <ul class="list-group menus">
                         <li class="list-group-item" id="73">
-                            <a href="javascript:;"
+                            <a href="{:url('admin/Company/index')}"
                                class="quickMenuLink">
                                 企业用户                                                </a>
                         </li>
                         <li class="list-group-item" id="77">
-                            <a href="javascript:;"
+                            <a href="{:url('admin/Resume/index')}"
                                class="quickMenuLink">
                                 求职用户                                                </a>
                         </li>
@@ -157,9 +129,10 @@
                         </a>
                     </div>
                     <ul class="list-group menus">
+
                         <li class="list-group-item" id="75">
 
-                            <a href="javascript:;"
+                            <a href="{:url('admin/Position/index')}"
                                class="quickMenuLink">
                                 职位列表                                                </a>
                         </li>

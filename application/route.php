@@ -9,13 +9,14 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 use think\Route;
+//
+//return [
+//    '__pattern__' => [
+//        'name' => '\w+',
+//    ]
+//];
 
-return [
-    '__pattern__' => [
-        'name' => '\w+',
-    ]
-];
-
+//管理后台首页
 Route::get('admin/index', 'admin/Index/index');
 
 

@@ -1,0 +1,68 @@
+{extend name='base'/}
+{block name="content"}
+<div>
+
+    <ul class="nav nav-tabs" role="tablist">
+
+        <li class="active">
+            <a href="javascript:;">企业列表</a>
+        </li>
+        <!--<li>-->
+            <!--<a href="{:url('admin/Position/add')}">添加职位</a>-->
+        <!--</li>-->
+    </ul>
+    <div class="panel panel-default">
+        <!--<div class="panel-heading">-->
+        <!--这里提供了能够显示的导航菜单, 你可以选择性的自定义或显示隐藏, 所有操作更改后需要点击保存按钮才有效。-->
+        <!--</div>-->
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th width="50">编号</th>
+                    <th width="150">企业名称</th>
+                    <th width="300">企业类型</th>
+                    <th width="200">企业地址</th>
+                    <th width="180">企业邮箱</th>
+
+                    <!--模块链接时不显示位置,位置在文章系统有效-->
+                    <th width="90">企业电话</th>
+
+                    <!--<th>开启</th>-->
+                    <!--<th>可用会员组</th>-->
+                    <th width="150">发布职位数</th>
+                    <th width="150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="company" id="vo"}
+                <tr>
+                    <td>{$vo.comp_id}</td>
+                    <td>{$vo.comp_name?$vo.comp_name:'暂未填写'}</td>
+                    <td>{$vo.comp_type?$vo.comp_type:'暂未填写'}</td>
+                    <td>{$vo.comp_address?$vo.comp_address:'暂未填写'}</td>
+                    <td>{$vo.comp_email?$vo.comp_email:'暂未填写'}</td>
+                    <td>{$vo.comp_phone?$vo.comp_phone:'暂未填写'}</td>
+                    <td>{$vo.comp_pos_count}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-default" @click.prevent="edit(field)">
+                                编辑
+                            </a>
+                            <a href="javascript:;" @click="del(field.id)" class="btn btn-default">删除</a>
+                        </div>
+                    </td>
+                </tr>
+                {/volist}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--<button type="submit" class="btn btn-default">保存修改</button>-->
+    <script>
+        require(['hdjs'],function(hdjs){
+            hdjs.bootstrapswitch('.bootstrap-switch');
+        })
+    </script>
+</div>
+{/block}
