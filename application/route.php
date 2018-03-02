@@ -53,6 +53,8 @@ Route::get('api/:ver/search','api/:ver.search/search');
 Route::post('api/:ver/register', 'api/:ver.user/register');
 //登录
 Route::get('api/:ver/login', 'api/:ver.user/login');
+//用户修改密码
+Route::post('api/:ver/updatepwd', 'api/:ver.user/upDatePwd');
 //获取用户信息
 Route::get('api/:ver/getUserInfo/:id', 'api/:ver.user/getUserInfo');
 //用户更新简历

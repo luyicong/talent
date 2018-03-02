@@ -7,10 +7,15 @@
     <meta name="csrf-token" content="547d8d197baef66f188c2f3d329a85d8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <style>
+        body{
+            background: url("__STATIC__/img/bg.png");
+        }
+    </style>
     <script>
         //HDJS组件需要的配置
         window.hdjs = {
-            'base': 'http://cms.yoho167.com/resource/hdjs',
+            'base': '__STATIC__/resource/hdjs',
             'uploader': 'http://cms.yoho167.com/index.php?s=component/upload/uploader',
             'filesLists': 'http://cms.yoho167.com/index.php?s=component/upload/filesLists',
             'removeImage': 'http://cms.yoho167.com/index.php?s=component/upload/removeImage',
@@ -22,8 +27,8 @@
             }
         }
     </script>
-    <script src="http://cms.yoho167.com/resource/hdjs/dist/static/requirejs/require.js?version=v2.0.9"></script>
-    <script src="http://cms.yoho167.com/resource/hdjs/dist/static/requirejs/config.js?version=v2.0.9"></script>
+    <script src="__STATIC__/resource/hdjs/dist/static/requirejs/require.js?version=v2.0.9"></script>
+    <script src="__STATIC__/resource/hdjs/dist/static/requirejs/config.js?version=v2.0.9"></script>
     <link href="__STATIC__/hdcms/hdcms.css" rel="stylesheet">
     <script>
         require(['hdjs'], function () {
@@ -37,14 +42,14 @@
     </script>
 </head>
 <body>
-<div style="padding-top: 100px">
-    <div class="container logo" style="margin-bottom: 20px;">
+<div style="padding-top: 150px">
+    <div class="container logo" style="width:450px;margin-bottom: 20px;text-align: center">
         <!--<div style="background: url('/resource/images/logo.png') no-repeat; background-size: contain;height: 60px;"></div>-->
-        <h3>学生报名管理系统</h3>
+        <h3>筑加人才管理系统</h3>
     </div>
-    <div class="container well">
+    <div class="container well" style="width:450px">
         <div class="row ">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <form method="post" action="">
                     <!--<input type='hidden' name='csrf_token' value='547d8d197baef66f188c2f3d329a85d8'/>-->
                     <div class="form-group">

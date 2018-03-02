@@ -8,15 +8,6 @@
 
 namespace app\api\controller\v1;
 
-//use houdunwang\crypt\Crypt;
-
-//header('Access-Control-Allow-Origin: *');
-//header("Access-Control-Allow-Headers: token,Origin, X-Requested-With, Content-Type, Accept");
-//header('Access-Control-Allow-Methods: GET,POST,OPTIONS');
-//if(request()->isOptions()){
-//    exit();
-//}
-
 use app\api\controller\Common;
 
 use houdunwang\crypt\Crypt;
@@ -80,12 +71,29 @@ class User extends Common
         }
     }
 
+    //用户修改密码
+    public function upDatePwd() {
+
+        $param = input('post.');
+
+        //判断旧密码是否正确
+        $oldPwd = db('user')->where('user_name',$param['user_name'])->value('password');
+        if($oldPwd != $param['oldpwd']){
+            return  show(0, '旧密码不正确！', [], 200);
+        }
+
+        $query = db('user')->where('user_name',$param['user_name'])->setField('password',$param['password']);
+
+        if($query) {
+            return show(config('code.success'), '修改成功！', [], 200);
+        }else{
+            return show(config('code.error'), '服务器内部错误！', [], 200);
+        }
+    }
     //用户更新简历
     public function upDateResume() {
 
         $params = input('post.');
-
-//        halt($params);
 
         foreach ($params as $k=>$v){
 
