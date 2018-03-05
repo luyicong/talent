@@ -43,10 +43,10 @@
                                 <td>{$vo.work_address}</td>
                                 <td>{$vo.pos_salary}</td>
                                 <td>{$vo.pos_type}</td>
-                                <td>{$vo.sendtime}</td>
+                                <td>{$vo.sendtime|date='Y-m-d H:i',###}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-default" @click.prevent="edit(field)">
+                                        <a class="btn btn-default" href="{:url('admin/Position/edit',['id'=>$vo.pos_id])}">
                                             编辑
                                         </a>
                                         <a href="javascript:;" @click="del(field.id)" class="btn btn-default">删除</a>

@@ -45,10 +45,35 @@ class Position extends Common
 
         $companyList = db('company')->field('comp_id,comp_name')->select();
 
-//        halt($companyList);
         $this->assign('cates',$cates);
         $this->assign('company',$companyList);
 
+        return $this->fetch();
+    }
+
+    //编辑职位
+    public function edit(){
+
+        if(request()->isPost()){
+            $res = model('position')->editPosition(input('post.'));
+            if($res['valid']){
+                //编辑成功
+                $this->success($res['msg'],'admin/Position/index');exit;
+            }else{
+                //编辑失败
+                $this->error($res['msg']);exit;
+            }
+        }
+//        halt(input('param.'));
+        $pos_id = input('param.id');
+
+        $detail = db('position')->where('pos_id',$pos_id)->find();
+//        halt($detail);
+        $cates = db('cate')->select();
+        $companyList = db('company')->field('comp_id,comp_name')->select();
+        $this->assign('cates',$cates);
+        $this->assign('company',$companyList);
+        $this->assign('detail',$detail);
         return $this->fetch();
     }
 }

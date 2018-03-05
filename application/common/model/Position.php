@@ -110,15 +110,33 @@ class Position extends Model
             //首先按照发布时间渲染，最后再根据文章id进行渲染
             ->order('p.pos_id asc')
 
-            ->paginate(10);
+            ->paginate(6);
 
-        foreach ($query as &$item) {
-            $item['sendtime'] = transfTime($item['sendtime']);
-        }
+//        foreach ($query[] as &$item) {
+//            $item['data']['sendtime'] = transfTime($item['data']['sendtime']);
+//        }
 
+//        halt($query['data']);
         return $query;
     }
 
+    //职位编辑
+    public function editPosition($data) {
+
+        $query = db('position')->where('pos_id',$data['pos_id'])->update($data);
+
+//        $oldCount =  db('company')->where('comp_id',$data['comp_id'])->find('comp_pos_count');
+//
+//        if($data['pos_number'] > $oldCount){
+//            $insetNum = db('company')->where('comp_id',$data['comp_id'])->setInc('comp_pos_count');
+//        }
+
+        if($query){
+            return ['valid'=>'1','msg'=>'编辑成功！'];
+        }else{
+            return ['valid'=>'0','msg'=>'编辑失败！'];
+        }
+    }
     //管理后台添加职位
     public function addPosition($data) {
 
