@@ -48,9 +48,11 @@ class Position extends Model
             ->order('p.sendtime desc');
         //是否传分类id
         if(isset($param['cate_id'])){
-            $result = $query -> where('cate_id',$param['cate_id'])->page($param['nowPage'],5)->select();
+            $result = $query -> where('cate_id',$param['cate_id'])->page($param['nowPage'],9)->select();
+//            $result = $query -> where('cate_id',$param['cate_id'])->paginate(6);
         }else{
-            $result = $query ->page($param['nowPage'],5)->select();
+            $result = $query ->page($param['nowPage'],9)->select();
+//            $result = $query ->paginate(6);
         }
         //时间格式装还
         foreach ($result as &$item) {

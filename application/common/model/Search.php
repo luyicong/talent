@@ -27,6 +27,11 @@ class Search extends Model
 
             ->select();
 
+        //时间格式装还
+        foreach ($result as &$item) {
+            $item['sendtime'] = transfTime($item['sendtime']);
+        }
+
         return $result;
     }
 
@@ -37,6 +42,11 @@ class Search extends Model
             ->where('position','like','%'.$key.'%')
 
             ->select();
+
+        //时间格式化
+        foreach ($result as &$item) {
+            $item['update_time'] = transfTime($item['update_time']);
+        }
 
         return $result;
     }

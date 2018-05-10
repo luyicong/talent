@@ -29,7 +29,7 @@ class Resume extends Model
     public function getResumeListForListPage($nowPage=1) {
         $result = db('resume')
                 ->where('position','<>','')
-                ->page($nowPage,6)
+                ->page($nowPage,3)
                 ->select();
 
         //时间格式转换
